@@ -84,12 +84,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Hey guys! This is my very first actual post on my blog. Recently I watched Dicaprio’s movie Before The Flood It was a pretty great documentary and I think everyone need’s to watch it. With this as ins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Charting with plotly in python">
+<meta property="og:url" content="http://yoursite.com/2016/11/01/plotly/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hey guys! This is my very first actual post on my blog. Recently I watched Dicaprio’s movie Before The Flood It was a pretty great documentary and I think everyone need’s to watch it. With this as ins">
+<meta property="og:updated_time" content="2016-11-01T11:27:33.888Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Charting with plotly in python">
+<meta name="twitter:description" content="Hey guys! This is my very first actual post on my blog. Recently I watched Dicaprio’s movie Before The Flood It was a pretty great documentary and I think everyone need’s to watch it. With this as ins">
 
 
 
@@ -110,10 +114,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/01/plotly/"/>
 
 
-  <title> Hexo </title>
+  <title> Charting with plotly in python | Hexo </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="en">
@@ -134,9 +138,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -215,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -237,10 +239,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/11/01/plotly/" itemprop="url">
-                  Charting with plotly in python
-                </a>
+                Charting with plotly in python
               
             
           </h1>
@@ -280,22 +279,24 @@
       
 
       
-        
-          
-            <p>Hey guys! This is my very first actual post on my blog. Recently I watched Dicaprio’s movie <a href="https://www.youtube.com/watch?v=90CkXVF-Q8M" target="_blank" rel="external">Before The Flood</a> It was a pretty great documentary and I think everyone need’s to watch it. With this as inspiration, I’m going to show you how to plot a very basic line chart on <a href="https://plot.ly/" target="_blank" rel="external">plotly</a> using Python using the temperature dataset of India from 1901-2014.<br>To begin with you’re going to need and account with plotly and python installed, I’m using python 2.7. By default pip is shipped with python, if not make sure you have pip installed.<br>First, we’re going to need the plotly library which can be obtained by<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install plotly</div></pre></td></tr></table></figure></p>
+        <p>Hey guys! This is my very first actual post on my blog. Recently I watched Dicaprio’s movie <a href="https://www.youtube.com/watch?v=90CkXVF-Q8M" target="_blank" rel="external">Before The Flood</a> It was a pretty great documentary and I think everyone need’s to watch it. With this as inspiration, I’m going to show you how to plot a very basic line chart on <a href="https://plot.ly/" target="_blank" rel="external">plotly</a> using Python using the temperature dataset of India from 1901-2014.<br>To begin with you’re going to need and account with plotly and python installed, I’m using python 2.7. By default pip is shipped with python, if not make sure you have pip installed.<br>First, we’re going to need the plotly library which can be obtained by<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install plotly</div></pre></td></tr></table></figure></p>
 <p>The dataset we’re going to use for this can be found <a href="https://data.gov.in/catalog/annual-and-seasonal-mean-temperature-india" target="_blank" rel="external">here</a>. Downlaod the JSONP format and remove the “(“ and “);” from the data and store it into a .json file.<br>Now before getting to the code, lets take a look at the data format. The “fields” tell, what each elememnt in the list are mapped to.<br>So in “data”, a list like [“1902”,”24.33”,”19.70”,”26.44”,”27.18”,”21.49”] the first element is the year, the second the Annual average temperature and so on.<br>If you also notice all the elements in the data are strings, So it is important for us to convert them to int/float values.</p>
 <p>Now getting to the code,<br>Import the necessary libraries we’re going to use to chart our data.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import plotly.plotly as py</div><div class="line">from plotly.graph_objs import *</div><div class="line">import json</div></pre></td></tr></table></figure><br>Sign in to your plotly account wiht your username and apikey which can be found on the dashboard.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">py.sign_in(&apos;username&apos;,&apos;apikey&apos;)</div></pre></td></tr></table></figure><br>Load the data file and assign it to a variable like,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with open(&apos;temp.json&apos;) as data_file:</div><div class="line">	jsonData = json.load(data_file)</div></pre></td></tr></table></figure><br>Initialise the x-Axis and y-Axis as lists and insert values into them, In this case the x Axis will have the time and the y the temperature. Don’t forget to convert the string to numbers as I mentioned before!<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">xAxis = []</div><div class="line">yAxis = []</div><div class="line">temp = jsonData[&quot;data&quot;]</div><div class="line">for i in temp:</div><div class="line">    for index,item in enumerate(i):</div><div class="line">        if(index==0):</div><div class="line">            xAxis.append(int(item))</div><div class="line">        elif(index==1):</div><div class="line">        	yAxis.append(float(item))</div></pre></td></tr></table></figure><br>Use the scatter function to create a trace and add it to a list called data which needs to be plotted.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">trace = Scatter(</div><div class="line">    x = xAxis,</div><div class="line">    y = yAxis,</div><div class="line">    name = &apos;Annual Mean&apos;</div><div class="line">)</div><div class="line">data = [trace]</div><div class="line">py.iplot(data, filename=&apos;Annual Mean Temperature Series&apos;)</div></pre></td></tr></table></figure><br>That’s it! you have your first plot ready, this chart would have been by default uploaded to your plotly account where you can easily modify or study it. On successfully plotting your graph will look something like this.<br><iframe src="//plot.ly/~gokul1794/4.embed" width="100%" height="300" frameborder="0" allowfullscreen></iframe><br>Similarly, you can make more traces and append it to the data list in order to get more than one graph. Something like this!<br><iframe src="//plot.ly/~gokul1794/2.embed" width="900" height="800" frameborder="0" allowfullscreen></iframe><br>Notice how the graph and the average temperature keeps rising, time we put our money where our mouth is.</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -303,209 +304,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/11/01/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/11/01/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-11-01T16:36:47+05:30" content="2016-11-01">
-              2016-11-01
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to my blog! This is my very first post, I’m an Information Technology Undergraduate from <a href="nitk.ac.in">NITK</a>, currently working at a health care tech firm. I’ve started this blog as a past time, I’ll mostly be writing about <a href="github.com/gokul1794">code</a>, tech and the difficulties I’ve faced during writing some code and how I solved them. Looking forward to writing often!</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/01/python/" itemprop="url">
-                  Charting with plotly in python
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-11-01T14:36:58+05:30" content="2016-11-01">
-              2016-11-01
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Hey guys! This is my very first actual post on my blog. Recently I watched Dicaprio’s movie <a href="https://www.youtube.com/watch?v=90CkXVF-Q8M" target="_blank" rel="external">Before The Flood</a> It was a pretty great documentary and I think everyone need’s to watch it. With this as inspiration, I’m going to show you how to plot a very basic line chart on <a href="https://plot.ly/" target="_blank" rel="external">plotly</a> using Python using the temperature dataset of India from 1901-2014.<br>To begin with you’re going to need and account with plotly and python installed, I’m using python 2.7. By default pip is shipped with python, if not make sure you have pip installed.<br>First, we’re going to need the plotly library which can be obtained by<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install plotly</div></pre></td></tr></table></figure></p>
-<p>The dataset we’re going to use for this can be found <a href="https://data.gov.in/catalog/annual-and-seasonal-mean-temperature-india" target="_blank" rel="external">here</a>. Downlaod the JSONP format and remove the “(“ and “);” from the data and store it into a .json file.<br>Now before getting to the code, lets take a look at the data format. The “fields” tell, what each elememnt in the list are mapped to.<br>So in “data”, a list like [“1902”,”24.33”,”19.70”,”26.44”,”27.18”,”21.49”] the first element is the year, the second the Annual average temperature and so on.<br>If you also notice all the elements in the data are strings, So it is important for us to convert them to int/float values.</p>
-<p>Now getting to the code,<br>Import the necessary libraries we’re going to use to chart our data.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import plotly.plotly as py</div><div class="line">from plotly.graph_objs import *</div><div class="line">import json</div></pre></td></tr></table></figure><br>Sign in to your plotly account wiht your username and apikey which can be found on the dashboard.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">py.sign_in(&apos;username&apos;,&apos;apikey&apos;)</div></pre></td></tr></table></figure><br>Load the data file and assign it to a variable like,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with open(&apos;temp.json&apos;) as data_file:</div><div class="line">	jsonData = json.load(data_file)</div></pre></td></tr></table></figure><br>Initialise the x-Axis and y-Axis as lists and insert values into them, In this case the x Axis will have the time and the y the temperature. Don’t forget to convert the string to numbers as I mentioned before!<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">xAxis = []</div><div class="line">yAxis = []</div><div class="line">temp = jsonData[&quot;data&quot;]</div><div class="line">for i in temp:</div><div class="line">    for index,item in enumerate(i):</div><div class="line">        if(index==0):</div><div class="line">            xAxis.append(int(item))</div><div class="line">        elif(index==1):</div><div class="line">        	yAxis.append(float(item))</div></pre></td></tr></table></figure><br>Use the scatter function to create a trace and add it to a list called data which needs to be plotted.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">trace = Scatter(</div><div class="line">    x = xAxis,</div><div class="line">    y = yAxis,</div><div class="line">    name = &apos;Annual Mean&apos;</div><div class="line">)</div><div class="line">data = [trace]</div><div class="line">py.iplot(data, filename=&apos;Annual Mean Temperature Series&apos;)</div></pre></td></tr></table></figure><br>That’s it! you have your first plot ready, this chart would have been by default uploaded to your plotly account where you can easily modify or study it. On successfully plotting your graph will look something like this.<br><iframe src="//plot.ly/~gokul1794/4.embed" width="100%" height="300" frameborder="0" allowfullscreen></iframe><br>Similarly, you can make more traces and append it to the data list in order to get more than one graph. Something like this!<br><iframe src="//plot.ly/~gokul1794/2.embed" width="900" height="800" frameborder="0" allowfullscreen></iframe><br>Notice how the graph and the average temperature keeps rising, time we put our money where our mouth is.</p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -513,6 +337,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -532,8 +360,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -576,6 +413,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -672,6 +520,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
 
   
 
